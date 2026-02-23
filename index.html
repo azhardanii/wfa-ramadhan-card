@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Ucapan Idul Fitri Eksklusif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': '#84A98C',
+                        'sage-dark': '#52796F',
+                        'cream': '#FDFBF7',
+                        'gold': '#D4AF37',
+                    },
+                    fontFamily: {
+                        'arabic': ['Amiri', 'serif'],
+                        'sans': ['Poppins', 'sans-serif'],
+                        'handwriting': ['Great Vibes', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body.locked {
+            overflow: hidden;
+        }
+        body {
+            background-color: #FDFBF7;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        #cover {
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            will-change: transform;
+        }
+
+        .ketupat-drop {
+            animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+            will-change: transform;
+        }
+        @keyframes dropAnimation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(120vh) rotate(200deg); }
+        }
+
+        .string-snap { animation: snapAnimation 0.5s forwards; }
+        @keyframes snapAnimation {
+            0% { transform: scaleY(1); opacity: 1; }
+            100% { transform: scaleY(0); opacity: 0; }
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: pop 1s ease-out forwards;
+        }
+        @keyframes pop {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .spin-slow { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        ::-webkit-scrollbar { width: 0px; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased font-sans locked">
+
+    <audio id="bg-music" loop>
+        <source src="Eid Joyful.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 bg-white w-12 h-12 rounded-full shadow-xl border border-sage/20 flex items-center justify-center text-sage-dark hidden transition-all duration-300 transform hover:scale-110">
+        <i class="fas fa-music text-lg"></i>
+    </button>
+
+    <div id="cover" class="fixed inset-0 w-full h-[100dvh] bg-sage-dark z-[100] flex flex-col items-center justify-center p-6">
+        
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] pointer-events-none"></div>
+
+        <div class="absolute top-0 right-6 md:right-12 flex flex-col items-center z-[110]">
+            <div id="ketupat-string" class="w-[2px] h-16 bg-gold/80 origin-top"></div>
+            <div id="main-ketupat" class="relative -mt-2 drop-shadow-md origin-top">
+                <svg viewBox="0 0 100 100" class="w-16 h-16 md:w-20 md:h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="15" width="45" height="45" transform="rotate(45 50 15)" fill="#84A98C" stroke="#D4AF37" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M50 15 L50 78 M18 47 L82 47" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M34 31 L66 63 M66 31 L34 63" stroke="#FDFBF7" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="bg-white/95 backdrop-blur-md p-8 rounded-3xl max-w-sm w-full relative z-10 text-center shadow-2xl border border-white/40">
+            <div class="text-6xl mb-4 animate-bounce" style="animation-duration: 3s;">🕌</div>
+            
+            <h2 class="text-gold tracking-[0.2em] font-medium uppercase text-[10px] mb-3">Pesan Spesial Untuk:</h2>
+            <h1 id="nama-penerima" class="text-2xl font-bold text-sage-dark mb-6 leading-tight capitalize">Keluarga & Sahabat</h1>
+            
+            <div class="w-12 h-[2px] bg-sage/30 mx-auto mb-6"></div>
+            
+            <p class="text-xs text-gray-500 mb-8 uppercase tracking-wider">Dari: <span class="font-bold text-sage-dark text-sm block mt-1 normal-case tracking-normal">Keluarga Besar Fulan</span></p>
+            
+            <button onclick="openLetter()" class="bg-sage text-white font-semibold py-3 px-8 rounded-full shadow-lg shadow-sage/40 hover:bg-sage-dark transition duration-300 w-full flex items-center justify-center gap-2 text-sm group">
+                Buka Pesan <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+        </div>
+    </div>
+
+    <main id="main-content" class="relative bg-cream min-h-screen w-full">
+        <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-sage/10 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative pb-20 overflow-hidden">
+            <section class="relative pt-20 pb-16 px-6 text-center">
+                <div class="reveal">
+                    <p class="font-arabic text-3xl text-gold mb-4 leading-relaxed opacity-90">
+                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                    </p>
+                    
+                    <h2 class="text-sm text-sage-dark font-medium mb-1 tracking-widest uppercase">Selamat Hari Raya</h2>
+                    <h1 class="font-handwriting text-6xl text-sage-dark mb-6 transform -rotate-2">Idul Fitri</h1>
+                    
+                    <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-8">
+                        1 Syawal 1447 H 🌙
+                    </span>
+                    
+                    <div class="px-2">
+                        <p class="text-gray-600 text-[13px] leading-relaxed">
+                            "Taqabbalallahu minna wa minkum, shiyamana wa shiyamakum."
+                            <br><br>
+                            Di hari yang fitri ini, kami <strong class="text-sage-dark">Keluarga Besar Fulan</strong> mengucapkan Minal Aidin Wal Faizin. Mohon maaf lahir dan batin atas segala khilaf dan salah yang pernah terucap maupun terbuat.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 px-8 bg-sage/5 text-center border-y border-sage/10">
+                <div class="reveal">
+                    <div class="text-3xl mb-4">🕊️🤍</div>
+                    <p class="font-arabic text-2xl text-sage-dark mb-4 leading-loose">
+                        وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ
+                    </p>
+                    <p class="text-[10px] text-gray-500 mb-4 font-bold uppercase tracking-widest">
+                        (QS. Ali 'Imran: 134)
+                    </p>
+                    <p class="italic text-gray-600 text-[13px] leading-relaxed relative">
+                        <span class="text-2xl text-sage/30 absolute -top-2 -left-2">"</span>
+                        ...dan orang-orang yang menahan amarahnya dan memaafkan (kesalahan) orang lain. Dan Allah menyukai orang-orang yang berbuat kebaikan.
+                        <span class="text-2xl text-sage/30 absolute -bottom-4 -right-2">"</span>
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-12 px-6 text-center">
+                <div class="reveal">
+                    <h3 class="text-lg font-bold text-sage-dark mb-6">Menuju Hari Kemenangan ⏳</h3>
+                    <div class="flex justify-center gap-2 sm:gap-3">
+                        <div class="bg-white border border-sage/20 shadow-sm rounded-xl p-3 w-16">
+                            <span id="days" class="text-2xl font-bold text-sage-dark block">00</span>
+                            <span class="text-[9px] sm:text-[10px] text-gray-500 uppercase">Hari</span>
+                        </div>
+                        <div class="bg-white border border-sage/20 shadow-sm rounded-xl p-3 w-16">
+                            <span id="hours" class="text-2xl font-bold text-sage-dark block">00</span>
+                            <span class="text-[9px] sm:text-[10px] text-gray-500 uppercase">Jam</span>
+                        </div>
+                        <div class="bg-white border border-sage/20 shadow-sm rounded-xl p-3 w-16">
+                            <span id="minutes" class="text-2xl font-bold text-sage-dark block">00</span>
+                            <span class="text-[9px] sm:text-[10px] text-gray-500 uppercase">Menit</span>
+                        </div>
+                        <div class="bg-white border border-sage/20 shadow-sm rounded-xl p-3 w-16">
+                            <span id="seconds" class="text-2xl font-bold text-sage-dark block">00</span>
+                            <span class="text-[9px] sm:text-[10px] text-gray-500 uppercase">Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-10 px-6 text-center bg-cream">
+                <div class="reveal">
+                    <div class="text-3xl mb-2">📸</div>
+                    <h3 class="text-xl font-bold text-sage-dark mb-2">Kepingan Memori</h3>
+                    <p class="text-gray-500 text-xs mb-8">Memori manis sebelum menyambut hari raya.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[-2deg] hover:rotate-0 transition duration-300">
+                            <img src="Photo1.webp" alt="Photo1" class="w-full h-36 object-cover rounded-lg">
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[2deg] hover:rotate-0 transition duration-300 mt-4">
+                            <img src="Photo2.webp" alt="Photo2" class="w-full h-36 object-cover rounded-lg">
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform hover:-translate-y-1 transition duration-300 col-span-2 mt-2">
+                            <img src="Photo3.webp" alt="Photo3" class="w-full h-48 object-cover rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 px-6 text-center relative overflow-hidden my-4" id="maaf-section">
+                <div class="reveal relative z-10">
+                    <div class="text-5xl mb-4 drop-shadow-sm">🙏🏻🫱🏻‍🫲🏻</div>
+                    <h3 class="text-lg font-bold text-sage-dark mb-2">Udah Maafin Kami Belum?</h3>
+                    <p class="text-[13px] text-gray-500 mb-6">Pencet tombol di bawah buat deal kosong-kosong!</p>
+
+                    <button onclick="triggerMaaf()" id="btn-maaf" class="bg-white border-2 border-sage text-sage-dark font-semibold py-3 px-8 rounded-full shadow-sm hover:bg-sage hover:text-white hover:border-transparent transition-all duration-300 active:scale-95 text-sm">
+                        Berikan Maaf
+                    </button>
+                    <p id="maaf-text" class="text-sage-dark font-bold mt-4 opacity-0 transition-opacity duration-500 text-sm">
+                        Alhamdulillah! Terima kasih orang baik! 🥰
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-12 px-6 text-center bg-sage/5 border-t border-sage/10">
+                <div class="reveal">
+                    <h3 class="text-xl font-bold text-sage-dark mb-2">Pojok Rezeki 💸</h3>
+                    <p class="text-gray-500 text-xs mb-8">Yang mau berbagi atau yang mau nodong THR, silakan~</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="openModal('modal-qris')" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-md transition transform hover:-translate-y-1 flex flex-col items-center gap-3 group cursor-pointer">
+                            <div class="text-3xl group-hover:scale-110 transition-transform">🎁💰</div>
+                            <span class="font-semibold text-sage-dark text-sm">Kasih THR</span>
+                        </button>
+                        
+                        <a href="https://api.whatsapp.com/send?phone=6281234567890&text=Halo%20keluarga%20Fulan!%20Minal%20Aidin%20Wal%20Faizin%20ya.%20Btw,%20hilal%20THR%20udah%20kelihatan%20belum%20nih?%20%F0%9F%98%81" target="_blank" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-md transition transform hover:-translate-y-1 flex flex-col items-center gap-3 group cursor-pointer">
+                            <div class="text-3xl group-hover:scale-110 transition-transform">🌹👛</div>
+                            <span class="font-semibold text-sage-dark text-sm">Minta THR</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
+                <div class="reveal relative z-10">
+                    <div class="text-4xl mb-3">📝✨</div>
+                    <h3 class="text-xl font-bold mb-2">Balas Pesan Kami</h3>
+                    <p class="text-[13px] text-sage-light/80 mb-8">Kirimkan doa dan ucapan balikmu langsung ke WhatsApp kami.</p>
+                    
+                    <div class="text-left bg-white/10 p-5 rounded-2xl border border-white/20">
+                        <label class="block text-[11px] text-sage-light mb-1.5 uppercase tracking-wide font-medium">Nama Kamu</label>
+                        <input type="text" id="wa-name" placeholder="Misal: Budi & Keluarga" class="w-full bg-white text-gray-800 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold text-sm mb-4">
+                        
+                        <label class="block text-[11px] text-sage-light mb-1.5 uppercase tracking-wide font-medium">Ucapan & Doa</label>
+                        <textarea id="wa-message" rows="3" placeholder="Tulis pesan selamat lebaranmu di sini..." class="w-full bg-white text-gray-800 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold resize-none text-sm"></textarea>
+                    </div>
+                    
+                    <button onclick="sendWA()" class="w-full bg-gold text-white font-bold py-3.5 px-6 rounded-xl shadow-lg mt-5 hover:bg-yellow-600 transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fab fa-whatsapp text-lg"></i> Kirim Pesan
+                    </button>
+                </div>
+            </section>
+
+            <section class="py-12 px-6 bg-cream text-center border-b-[8px] border-sage">
+                <div class="reveal">
+                    <div class="bg-white border border-gold/30 p-6 rounded-2xl shadow-sm">
+                        <h4 class="text-gold font-bold mb-2 text-sm uppercase tracking-wider">Template Premium</h4>
+                        <p class="text-gray-600 text-[13px] mb-5">Buat ucapan lebih berkesan dengan undangan digital eksklusif ini.</p>
+                        
+                        <div class="text-sm text-gray-400 line-through mb-1">Rp 250.000</div>
+                        <div class="text-3xl font-bold text-sage-dark mb-6">Rp 49.000</div>
+                        
+                        <div class="bg-sage/5 p-4 rounded-xl border border-sage/10 mb-6 text-left max-w-[280px] mx-auto">
+                            <ul class="text-[12px] text-gray-700 space-y-3 font-medium">
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Custom Link Bebas Pilih Nama</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Custom Nama Tamu Tanpa Batas</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Bebas Ganti Foto & Narasi</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Request Lagu Favorit Keluarga</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Masa Aktif Website Selamanya</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-sage mt-0.5"></i> Proses Cepat (Max 1x24 Jam)</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://api.whatsapp.com/send?phone=6281234567890&text=Halo%20min,%20saya%20mau%20pesan%20template%20undangan%20Idul%20Fitri%20yang%20Premium!" target="_blank" class="inline-block bg-sage-dark text-white text-sm font-semibold py-3 px-8 rounded-full shadow-md hover:bg-sage transition w-full">
+                            Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="py-6 text-center bg-cream">
+                <div class="text-[11px] text-gray-400 font-medium">
+                    &copy; 2026 Idul Fitri Premium Edition
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <div id="modal-qris" class="fixed inset-0 z-[110] hidden items-center justify-center px-4 bg-black/60 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-sm text-center relative shadow-2xl">
+            <button onclick="closeModal('modal-qris')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-4xl mb-2 mt-2">📱💳</div>
+            <h3 class="text-lg font-bold text-sage-dark mb-1">Kirim THR</h3>
+            <p class="text-[13px] text-gray-500 mb-6">Scan QRIS di bawah ini melalui m-banking/e-wallet.</p>
+            
+            <div class="bg-gray-50 p-3 rounded-2xl inline-block mb-6 border border-gray-200">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ContohQRIS_THR_IdulFitri" alt="QRIS" class="w-48 h-48 rounded-lg">
+            </div>
+            
+            <div class="bg-sage/5 p-4 rounded-xl border border-sage/20 mb-4 text-left flex items-center justify-between">
+                <div>
+                    <p class="text-[10px] text-sage-dark font-semibold uppercase tracking-wider mb-1">BCA - Fulan</p>
+                    <p class="font-bold text-sage-dark text-lg tracking-wider" id="rekening">123-456-7890</p>
+                </div>
+                <button onclick="copyRekening()" id="btn-copy" class="w-10 h-10 bg-gold text-white rounded-full hover:bg-yellow-600 transition shadow-sm flex items-center justify-center">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const kpd = params.get('kpd');
+            if (kpd) {
+                document.getElementById('nama-penerima').textContent = document.createTextNode(kpd).textContent;
+            }
+        });
+
+        var isPlaying = false; 
+        
+        function openLetter() {
+            const ketupat = document.getElementById('main-ketupat');
+            const tali = document.getElementById('ketupat-string');
+            const cover = document.getElementById('cover');
+            
+            tali.classList.add('string-snap');
+            ketupat.classList.add('ketupat-drop');
+
+            const bgMusic = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            const icon = musicBtn.querySelector('i');
+            
+            musicBtn.classList.remove('hidden');
+            
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isPlaying = true;
+                    icon.classList.add('spin-slow');
+                    icon.classList.replace('fa-volume-mute', 'fa-music');
+                }).catch(error => {
+                    console.log("Autoplay dicegah browser.");
+                    isPlaying = false;
+                    icon.classList.remove('spin-slow');
+                    icon.classList.replace('fa-music', 'fa-volume-mute');
+                });
+            }
+
+            setTimeout(() => {
+                cover.style.transform = 'translateY(-100vh)';
+                document.body.classList.remove('locked');
+                setTimeout(reveal, 100);
+            }, 600); 
+
+            setTimeout(() => { cover.style.display = 'none'; }, 2000);
+        }
+
+        function toggleMusic() {
+            const bgMusic = document.getElementById('bg-music');
+            const icon = document.querySelector('#music-btn i');
+            
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                icon.classList.remove('spin-slow');
+                icon.classList.replace('fa-music', 'fa-volume-mute');
+            } else {
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        isPlaying = true;
+                        icon.classList.add('spin-slow');
+                        icon.classList.replace('fa-volume-mute', 'fa-music');
+                    }).catch(error => {
+                        console.log("Gagal memutar audio:", error);
+                    });
+                }
+            }
+        }
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            var windowHeight = window.innerHeight;
+            
+            for (var i = 0; i < reveals.length; i++) {
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 50; 
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const countDownDate = new Date("Mar 20, 2026 00:00:00").getTime();
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                const daysEl = document.getElementById("days");
+                const hoursEl = document.getElementById("hours");
+                const minutesEl = document.getElementById("minutes");
+                const secondsEl = document.getElementById("seconds");
+
+                if (daysEl) daysEl.innerHTML = days < 10 ? '0'+days : days;
+                if (hoursEl) hoursEl.innerHTML = hours < 10 ? '0'+hours : hours;
+                if (minutesEl) minutesEl.innerHTML = minutes < 10 ? '0'+minutes : minutes;
+                if (secondsEl) secondsEl.innerHTML = seconds < 10 ? '0'+seconds : seconds;
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    if (daysEl) daysEl.innerHTML = "00";
+                    if (hoursEl) hoursEl.innerHTML = "00";
+                    if (minutesEl) minutesEl.innerHTML = "00";
+                    if (secondsEl) secondsEl.innerHTML = "00";
+                }
+            }, 1000);
+        });
+
+        function triggerMaaf() {
+            const btn = document.getElementById('btn-maaf');
+            const text = document.getElementById('maaf-text');
+            const section = document.getElementById('maaf-section');
+
+            btn.innerHTML = '💖 Sudah Dimaafkan';
+            btn.classList.replace('bg-white', 'bg-sage-dark');
+            btn.classList.replace('text-sage-dark', 'text-white');
+            btn.classList.replace('border-sage', 'border-transparent');
+            
+            text.classList.remove('opacity-0');
+            text.classList.add('opacity-100');
+
+            const colors = ['#84A98C', '#D4AF37', '#FDFBF7'];
+            for(let i=0; i<30; i++) {
+                let p = document.createElement('div');
+                p.className = 'confetti-piece';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                p.style.left = '50%';
+                p.style.top = '30%';
+                
+                let tx = (Math.random() - 0.5) * 200 + 'px';
+                let ty = (Math.random() - 0.5) * 200 - 50 + 'px';
+                p.style.setProperty('--tx', tx);
+                p.style.setProperty('--ty', ty);
+                
+                section.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+        function copyRekening() {
+            const rek = document.getElementById('rekening').innerText.replace(/-/g, '');
+            const btn = document.getElementById('btn-copy');
+            const temp = document.createElement("input");
+            document.body.appendChild(temp);
+            temp.value = rek;
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+            
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.classList.replace('bg-gold', 'bg-sage-dark');
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.replace('bg-sage-dark', 'bg-gold');
+            }, 2000);
+        }
+
+        function sendWA() {
+            const name = document.getElementById('wa-name').value;
+            const message = document.getElementById('wa-message').value;
+            if(!name || !message) return alert("Mohon isi nama dan ucapan terlebih dahulu 😊");
+
+            const phone = "6281234567890";
+            const text = `Assalamualaikum Keluarga Fulan,\n\nSaya *${name}*,\n"${message}"\n\nSelamat Hari Raya Idul Fitri. Mohon Maaf Lahir & Batin ya! 🙏`;
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
