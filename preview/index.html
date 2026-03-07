@@ -11,27 +11,33 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
         
+        /* Teknik Rahasia: Iframe Scaling untuk Live Thumbnail yang Pas */
         .thumbnail-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 100%;
+            /* Perubahan 1: Ubah padding-top: 150% MENJADI 100% AGAR MENJADI PERSEGI (kurangi ruang atas/bawah) */
+            padding-top: 100%; 
             overflow: hidden;
-            background: #1f2937;
+            /* Perubahan 2: Berikan warna latar belakang default yang gelap */
+            background: #1f2937; 
             border-radius: 0.75rem 0.75rem 0 0;
         }
         
         .thumbnail-iframe {
             position: absolute;
+            /* Perubahan 3: Sesuaikan penskalaan agar lebih dekat (bukan 4x, tapi 2x) */
             top: 0;
             left: 0;
-            width: 200%;
+            width: 200%; /* Diperbesar 2x lipat (sebelumnya 4x) */
             height: 200%;
-            transform: scale(0.5);
+            transform: scale(0.5); /* Diperkecil 0.5x agar pas (sebelumnya 0.25x) */
+            /* Perubahan 4: Pusatkan penskalaan agar pas di tengah kartu */
             transform-origin: center center;
             pointer-events: none;
             border: none;
         }
 
+        /* Loading Animation */
         .loading-skeleton {
             position: absolute;
             inset: 0;
