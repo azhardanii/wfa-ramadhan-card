@@ -11,13 +11,12 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
         
-        /* Iframe Scaling untuk Live Thumbnail */
         .thumbnail-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 150%; /* Aspek rasio HP (Portrait) */
+            padding-top: 100%;
             overflow: hidden;
-            background: #e5e7eb;
+            background: #1f2937;
             border-radius: 0.75rem 0.75rem 0 0;
         }
         
@@ -25,21 +24,12 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 400%; /* Diperbesar 4x lipat */
-            height: 400%;
-            transform: scale(0.25); /* Diperkecil 25% agar muat di kotak */
-            transform-origin: top left;
-            pointer-events: none; /* Dimatikan agar tidak bisa diklik */
+            width: 200%;
+            height: 200%;
+            transform: scale(0.5);
+            transform-origin: center center;
+            pointer-events: none;
             border: none;
-        }
-
-        /* Animasi Loading Skeleton */
-        .skeleton-pulse {
-            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
         }
 
         .loading-skeleton {
@@ -117,6 +107,20 @@
         const githubRepo = 'wfa-ramadhan-card';
         const folderName = 'preview'; 
 
+        // 1. KAMUS WARNA DITAMBAHKAN KEMBALI
+        const colorMap = {
+            "sage": "#84A98C",
+            "midnight": "#1E3A8A",
+            "terracotta": "#D97757",
+            "emerald": "#065F46",
+            "dusty-pink": "#D4A5A5",
+            "monochrome": "#52525B",
+            "lavender": "#A78BFA",
+            "mustard": "#EAB308",
+            "maroon": "#9F1239",
+            "teal": "#14B8A6"
+        };
+
         // Fungsi acak (Fisher-Yates Shuffle) agar tampilan tidak monoton
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -156,11 +160,15 @@
                     
                     let colorName = "Tema";
                     let styleName = "Kustom";
+                    let themeColor = "#1f2937"; 
 
-                    // Ambil info dari nama file
                     if (parts.length >= 4) {
                         colorName = parts[2];
                         styleName = parts.slice(3).join(' ');
+                        
+                        if (colorMap[colorName]) {
+                            themeColor = colorMap[colorName];
+                        }
                     } else {
                         colorName = fileNameClean.replace(/-/g, ' ');
                     }
@@ -169,7 +177,7 @@
                     card.className = "bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 overflow-hidden group transform hover:-translate-y-1";
                     
                     card.innerHTML = `
-                        <div class="thumbnail-wrapper border-b border-gray-100">
+                        <div class="thumbnail-wrapper pattern-bg border-b border-gray-100" style="background-color: ${themeColor}">
                             <div class="loading-skeleton skeleton-${counter}"></div>
                             
                             <iframe 
@@ -227,7 +235,7 @@
                             iframeObserver.unobserve(iframe);
                         }
                     });
-                }, { rootMargin: "0px 0px 200px 0px" }); // Mulai load gambar sebelum masuk layar
+                }, { rootMargin: "0px 0px 200px 0px" });
 
                 lazyIframes.forEach(function(iframe) {
                     iframeObserver.observe(iframe);
