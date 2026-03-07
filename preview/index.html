@@ -11,33 +11,31 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
         
-        /* Teknik Rahasia: Iframe Scaling untuk Live Thumbnail yang Pas */
         .thumbnail-wrapper {
             position: relative;
             width: 100%;
-            /* Perubahan 1: Ubah padding-top: 150% MENJADI 100% AGAR MENJADI PERSEGI (kurangi ruang atas/bawah) */
+            /* Dibuat persegi (1:1) agar grid rapi dan tidak terlalu tinggi */
             padding-top: 100%; 
             overflow: hidden;
-            /* Perubahan 2: Berikan warna latar belakang default yang gelap */
-            background: #1f2937; 
             border-radius: 0.75rem 0.75rem 0 0;
+            background-color: #1f2937;
         }
         
         .thumbnail-iframe {
             position: absolute;
-            /* Perubahan 3: Sesuaikan penskalaan agar lebih dekat (bukan 4x, tapi 2x) */
-            top: 0;
-            left: 0;
-            width: 200%; /* Diperbesar 2x lipat (sebelumnya 4x) */
-            height: 200%;
-            transform: scale(0.5); /* Diperkecil 0.5x agar pas (sebelumnya 0.25x) */
-            /* Perubahan 4: Pusatkan penskalaan agar pas di tengah kartu */
+            /* Ukuran dikunci seperti layar Mobile */
+            width: 400px;
+            height: 520px;
+            /* Ditarik tepat ke tengah container */
+            top: 50%;
+            left: 50%;
+            /* Digeser presisi ke center dan di zoom-out agar pas di dalam kotak */
+            transform: translate(-50%, -50%) scale(0.60);
             transform-origin: center center;
             pointer-events: none;
             border: none;
         }
 
-        /* Loading Animation */
         .loading-skeleton {
             position: absolute;
             inset: 0;
@@ -113,7 +111,7 @@
         const githubRepo = 'wfa-ramadhan-card';
         const folderName = 'preview'; 
 
-        // 1. KAMUS WARNA DITAMBAHKAN KEMBALI
+        // KAMUS WARNA YANG AKURAT
         const colorMap = {
             "sage": "#84A98C",
             "midnight": "#1E3A8A",
@@ -127,7 +125,6 @@
             "teal": "#14B8A6"
         };
 
-        // Fungsi acak (Fisher-Yates Shuffle) agar tampilan tidak monoton
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -142,17 +139,11 @@
                 if (!response.ok) throw new Error("Limit API GitHub tercapai atau repo private.");
                 
                 const data = await response.json();
-
-                // Ambil file HTML saja
                 let htmlFiles = data.filter(file => file.name.endsWith('.html') && file.name !== 'index.html');
-                
                 loadingState.style.display = 'none';
                 
-                if (htmlFiles.length === 0) {
-                    throw new Error("Folder preview kosong.");
-                }
+                if (htmlFiles.length === 0) throw new Error("Folder preview kosong.");
 
-                // ACAK URUTAN FILE DI SINI SEBELUM DITAMPILKAN!
                 htmlFiles = shuffleArray(htmlFiles);
 
                 gridContainer.classList.remove('hidden');
@@ -161,29 +152,41 @@
                 let counter = 1;
 
                 htmlFiles.forEach(file => {
-                    const fileNameClean = file.name.replace('.html', '');
-                    const parts = fileNameClean.split('-');
+                    const rawName = file.name;
                     
-                    let colorName = "Tema";
-                    let styleName = "Kustom";
-                    let themeColor = "#1f2937"; 
+                    // 1. EKSTRAK NOMOR DENGAN AMAN (Mencari 3 digit angka)
+                    let numMatch = rawName.match(/-(\d{3})-/);
+                    let number = numMatch ? numMatch[1] : "000";
 
-                    if (parts.length >= 4) {
-                        colorName = parts[2];
-                        styleName = parts.slice(3).join(' ');
-                        
-                        if (colorMap[colorName]) {
-                            themeColor = colorMap[colorName];
+                    // 2. EKSTRAK WARNA DENGAN AMAN (Mencari kata di dalam nama file)
+                    let extractedColor = "Custom";
+                    let themeColor = "#1f2937"; // Fallback default
+                    
+                    for (const key in colorMap) {
+                        if (rawName.includes(key)) {
+                            extractedColor = key;
+                            themeColor = colorMap[key];
+                            break;
+                        }
+                    }
+
+                    // 3. EKSTRAK STYLE (Mengambil sisa kata setelah warna)
+                    let styleName = "Style";
+                    if (extractedColor !== "Custom") {
+                        let splitKey = `-${extractedColor}-`;
+                        let nameParts = rawName.split(splitKey);
+                        if (nameParts.length > 1) {
+                            styleName = nameParts[1].replace('.html', '').replace(/-/g, ' ');
                         }
                     } else {
-                        colorName = fileNameClean.replace(/-/g, ' ');
+                        styleName = rawName.replace('.html', '').replace(/-/g, ' ');
                     }
 
                     const card = document.createElement('div');
                     card.className = "bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 overflow-hidden group transform hover:-translate-y-1";
                     
                     card.innerHTML = `
-                        <div class="thumbnail-wrapper pattern-bg border-b border-gray-100" style="background-color: ${themeColor}">
+                        <div class="thumbnail-wrapper border-b border-gray-100" style="background-color: ${themeColor}">
                             <div class="loading-skeleton skeleton-${counter}"></div>
                             
                             <iframe 
@@ -203,7 +206,10 @@
                         
                         <div class="p-5 flex-grow flex flex-col justify-between bg-white relative z-20">
                             <div>
-                                <h3 class="font-bold text-gray-800 text-lg capitalize mb-1 leading-tight">${colorName}</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">No. ${number}</span>
+                                </div>
+                                <h3 class="font-bold text-gray-800 text-lg capitalize mb-1 leading-tight">${extractedColor}</h3>
                                 <p class="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center gap-1">
                                     <i class="fas fa-layer-group text-gray-300"></i> ${styleName}
                                 </p>
@@ -215,7 +221,6 @@
                     counter++;
                 });
 
-                // Jalankan Lazy Load
                 initLazyLoad();
 
             } catch (error) {
@@ -227,7 +232,6 @@
             }
         }
 
-        // Lazy Load Iframe Observers
         function initLazyLoad() {
             var lazyIframes = [].slice.call(document.querySelectorAll("iframe.lazy-iframe"));
 
