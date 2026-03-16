@@ -574,16 +574,6 @@
                 btn.classList.replace('bg-sage-dark', 'bg-gold');
             }, 2000);
         }
-
-        function sendWA() {
-            const name = document.getElementById('wa-name').value;
-            const message = document.getElementById('wa-message').value;
-            if(!name || !message) return alert("Mohon isi nama dan ucapan terlebih dahulu 😊");
-
-            const phone = "6281234567890";
-            const text = `Assalamualaikum Keluarga Fulan,\n\nSaya *${name}*,\n"${message}"\n\nSelamat Hari Raya Idul Fitri. Mohon Maaf Lahir & Batin ya! 🙏`;
-            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`, '_blank');
-        }
     </script>
 </body>
 </html>

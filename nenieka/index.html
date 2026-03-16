@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neni Eka - Ucapan Lebaran Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Pinyon+Script&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lateef&family=Dancing+Script:wght@600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -566,16 +566,6 @@
                 btn.innerHTML = originalHTML;
                 btn.classList.replace('bg-sage-dark', 'bg-gold');
             }, 2000);
-        }
-
-        function sendWA() {
-            const name = document.getElementById('wa-name').value;
-            const message = document.getElementById('wa-message').value;
-            if(!name || !message) return alert("Mohon isi nama dan ucapan terlebih dahulu 😊");
-
-            const phone = "6281234567890";
-            const text = `Assalamualaikum Keluarga Fulan,\n\nSaya *${name}*,\n"${message}"\n\nSelamat Hari Raya Idul Fitri. Mohon Maaf Lahir & Batin ya! 🙏`;
-            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
 </body>
