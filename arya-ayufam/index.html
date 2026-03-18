@@ -258,6 +258,25 @@
                 </div>
             </section>
 
+            <section class="py-12 px-6 text-center">
+                <div class="reveal">
+                    <h3 class="text-xl font-bold text-sage-dark mb-2">Pojok Rezeki 💸</h3>
+                    <p class="text-gray-500 text-xs mb-8">Waktunya bagi-bagi THR! Siapa cepat dia dapat~</p>
+                    
+                    <div class="flex justify-center">
+                        <button onclick="openModal('modal-thr')" class="bg-white border border-sage/20 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-4 group cursor-pointer w-full max-w-xs relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
+                            
+                            <div class="text-5xl group-hover:scale-110 transition-transform duration-300 z-20">🎁✨</div>
+                            <div class="flex flex-col items-center z-20">
+                                <span class="font-bold text-sage-dark text-lg">Ambil Jatah THR</span>
+                                <span class="text-xs text-gray-500 mt-1">Tap untuk buka!</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
                 <div class="reveal relative z-10 flex flex-col items-center">
                     <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-md backdrop-blur-sm">
@@ -294,6 +313,24 @@
             </footer>
         </div>
     </main>
+
+    <div id="modal-thr" class="fixed inset-0 z-[110] hidden items-center justify-center px-4 bg-black/60 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-3xl p-8 w-full max-w-sm text-center relative shadow-2xl transform transition-transform duration-300 scale-95" id="modal-thr-content">
+            <button onclick="closeModal('modal-thr')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-7xl mb-6 mt-4 animate-bounce drop-shadow-md">💌</div>
+            
+            <h3 class="text-2xl font-bold text-sage-dark mb-2">Yeay, Ada Amplop!</h3>
+            <p class="text-[13px] text-gray-500 mb-8 px-2">Klaim saldo ShopeePay THR kamu sekarang sebelum kehabisan!</p>
+            
+            <a href="https://app.shopeepay.co.id/u/pkKqSbVHnKyY8jRGeDWUZ" target="_blank" onclick="closeModal('modal-thr')" class="inline-flex w-full bg-[#EE4D2D] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_15px_rgba(238,77,45,0.3)] hover:bg-[#D74123] hover:shadow-[0_12px_20px_rgba(238,77,45,0.4)] transition-all transform hover:-translate-y-1 items-center justify-center gap-2">
+                <i class="fas fa-wallet"></i>
+                Buka Amplop ShopeePay
+            </a>
+        </div>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
