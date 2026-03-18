@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "arya-ayufam.ucapanlebaran.untukmu.site"
+        }
+      ],
+      "destination": "/arya-ayufam/$1"
+    }
+  ]
+}
