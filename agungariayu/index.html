@@ -13,14 +13,10 @@
             theme: {
                 extend: {
                     colors: {
-                        // --- N8N_COLORS_START ---
                         'sage': '#14B8A6', 'sage-dark': '#042F2E', 'cream': '#F0FDFA', 'gold': '#FDE047',
-                        // --- N8N_COLORS_END ---
                     },
                     fontFamily: {
-                        // --- N8N_FONTS_START ---
                         'arabic': ['Amiri', 'serif'], 'sans': ['Poppins', 'sans-serif'], 'handwriting': ['Great Vibes', 'cursive'],
-                        // --- N8N_FONTS_END ---
                     }
                 }
             }
@@ -28,12 +24,8 @@
     </script>
 
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body.locked {
-            overflow: hidden;
-        }
+        html { scroll-behavior: smooth; }
+        body.locked { overflow: hidden; }
         body {
             background-color: #FDFBF7;
             -webkit-tap-highlight-color: transparent;
@@ -45,10 +37,7 @@
             will-change: transform;
         }
 
-        .ketupat-drop {
-            animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
-            will-change: transform;
-        }
+        .ketupat-drop { animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; will-change: transform; }
         @keyframes dropAnimation {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(120vh) rotate(200deg); }
@@ -61,11 +50,7 @@
         }
 
         .confetti-piece {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            pointer-events: none;
+            position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none;
             animation: pop 1s ease-out forwards;
         }
         @keyframes pop {
@@ -74,18 +59,20 @@
         }
 
         .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
             will-change: opacity, transform;
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         .spin-slow { animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Animasi tambahan untuk pesan masuk */
+        @keyframes fadeInPesan {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeInPesan 0.5s ease-out forwards; }
 
         ::-webkit-scrollbar { width: 0px; }
     </style>
@@ -101,7 +88,6 @@
     </button>
 
     <div id="cover" class="fixed inset-0 w-full h-[100dvh] bg-sage-dark z-[100] flex flex-col items-center justify-center p-6">
-        
         <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] pointer-events-none"></div>
 
         <div class="absolute top-0 right-6 md:right-12 flex flex-col items-center z-[110]">
@@ -116,7 +102,6 @@
         </div>
 
         <div class="bg-white/95 backdrop-blur-md p-8 rounded-3xl max-w-sm w-full relative z-10 text-center shadow-2xl border border-white/40">
-            
             <div class="mb-6 flex justify-center items-center animate-bounce-soft">
                 <img src="ariayu1.jpeg" alt="Pesan Spesial" class="w-40 h-40 sm:w-48 sm:h-48 object-cover object-bottom rounded-full shadow-xl border-4 border-white/50">
             </div>
@@ -138,18 +123,13 @@
         <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-sage/10 to-transparent pointer-events-none"></div>
 
         <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative overflow-hidden">
+            
             <section class="relative pt-20 pb-16 px-6 text-center">
                 <div class="reveal">
-                    <p class="font-arabic text-3xl text-gold mb-4 leading-relaxed opacity-90">
-                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
-                    </p>
-                    
+                    <p class="font-arabic text-3xl text-gold mb-4 leading-relaxed opacity-90">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
                     <h2 class="text-sm text-sage-dark font-medium mb-1 tracking-widest uppercase">Selamat Hari Raya</h2>
                     <h1 class="font-handwriting text-6xl text-sage-dark mb-6 transform -rotate-2">Idul Fitri</h1>
-                    
-                    <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-8">
-                        1 Syawal 1447 H 🌙
-                    </span>
+                    <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-8">1 Syawal 1447 H 🌙</span>
                     
                     <div class="px-2">
                         <p class="text-gray-600 text-[13px] leading-relaxed">
@@ -164,12 +144,8 @@
             <section class="py-12 px-8 bg-sage/5 text-center border-y border-sage/10">
                 <div class="reveal">
                     <div class="text-3xl mb-4">🕊️🤍</div>
-                    <p class="font-arabic text-2xl text-sage-dark mb-4 leading-loose">
-                        وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ
-                    </p>
-                    <p class="text-[10px] text-gray-500 mb-4 font-bold uppercase tracking-widest">
-                        (QS. Ali 'Imran: 134)
-                    </p>
+                    <p class="font-arabic text-2xl text-sage-dark mb-4 leading-loose">وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ</p>
+                    <p class="text-[10px] text-gray-500 mb-4 font-bold uppercase tracking-widest">(QS. Ali 'Imran: 134)</p>
                     <p class="italic text-gray-600 text-[13px] leading-relaxed relative">
                         <span class="text-2xl text-sage/30 absolute -top-2 -left-2">"</span>
                         ...dan orang-orang yang menahan amarahnya dan memaafkan (kesalahan) orang lain. Dan Allah menyukai orang-orang yang berbuat kebaikan.
@@ -259,10 +235,8 @@
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                        
                         <a href="https://www.rumahzakat.org/donasi/zakat-fithrah" target="_blank" rel="noopener noreferrer" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-3 group relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
-                            
                             <div class="text-4xl group-hover:scale-110 transition-transform duration-300 z-20">🌾</div>
                             <div class="flex flex-col items-center z-20">
                                 <span class="font-bold text-sage-dark text-sm sm:text-base">Tunaikan Zakat Fitrahmu</span>
@@ -272,44 +246,48 @@
 
                         <a href="https://donasi.rumahanaksurga.com/campaign/zakat-maal" target="_blank" rel="noopener noreferrer" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-3 group relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
-                            
                             <div class="text-4xl group-hover:scale-110 transition-transform duration-300 z-20">💰</div>
                             <div class="flex flex-col items-center z-20">
                                 <span class="font-bold text-sage-dark text-sm sm:text-base">Berbagi Zakat Maal</span>
                                 <span class="text-[11px] text-gray-500 mt-1">via Rumah Anak Surga</span>
                             </div>
                         </a>
-                        
                     </div>
                 </div>
             </section>
 
             <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
                 <div class="reveal relative z-10 flex flex-col items-center">
-                    <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-sm backdrop-blur-sm transition-transform duration-300 hover:scale-[1.02]">
+                    <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-md backdrop-blur-sm">
+                        <div class="text-4xl mb-3">🕊️</div>
+                        <h4 class="text-xl font-semibold mb-2">Buku Tamu & Doa</h4>
+                        <p class="text-sm text-white/70 mb-6 leading-relaxed">Tinggalkan pesan, doa, atau sapaan hangat untuk kami di sini.</p>
                         
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-[#25D366] to-[#128C7E] rounded-full flex items-center justify-center mb-4 shadow-lg animate-pulse">
-                            <i class="fab fa-whatsapp text-3xl text-white"></i>
-                        </div>
-                        
-                        <h4 class="text-base font-semibold mb-1">Balas Ucapan Kami</h4>
-                        <p class="text-xs text-white/70 mb-6">Kirimkan doa, cerita, atau sekadar<br/>menyapa kami langsung di WhatsApp ya!</p>
-                        
-                        <a href="https://wa.me/6281907426263" target="_blank" rel="noopener noreferrer" class="group relative flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_8px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 overflow-hidden text-sm">
-                            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0"></div>
+                        <form id="form-pesan" class="flex flex-col gap-3 mb-6 text-left">
+                            <input type="text" id="nama-pengirim" placeholder="Nama Kamu" required
+                                class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm">
                             
-                            <span class="relative z-10 flex items-center gap-2">
-                                <i class="fab fa-whatsapp text-lg"></i> Kirim Pesan via WA
-                            </span>
-                        </a>
+                            <textarea id="isi-pesan" placeholder="Tulis pesan atau doa..." rows="3" required
+                                class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm resize-none"></textarea>
+                            
+                            <button type="submit" id="btn-submit" class="w-full bg-white text-sage-dark font-bold py-3.5 rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 mt-1">
+                                Kirim Pesan
+                            </button>
+                        </form>
                         
+                        <div class="text-left border-t border-white/20 pt-5">
+                            <h5 class="text-sm font-semibold mb-4 text-white/90">Pesan dari yang lain:</h5>
+                            <div id="daftar-pesan" class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-2 space-y-3" style="scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;">
+                                <p id="loading-pesan" class="text-center text-xs text-white/50 py-4">Memuat pesan...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <footer class="py-6 text-center bg-cream">
                 <div class="text-[11px] text-gray-400 font-medium">
-                    &copy; 2026 Idul Fitri - Agung & Ari Ayu
+                    &copy; 2026 Idul Fitri - Arya & Ayu
                 </div>
             </footer>
         </div>
@@ -320,15 +298,11 @@
             <button onclick="closeModal('modal-thr')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
                 <i class="fas fa-times"></i>
             </button>
-            
             <div class="text-7xl mb-6 mt-4 animate-bounce drop-shadow-md">💌</div>
-            
             <h3 class="text-2xl font-bold text-sage-dark mb-2">Yeay, Ada Amplop!</h3>
             <p class="text-[13px] text-gray-500 mb-8 px-2">Klaim saldo ShopeePay THR kamu sekarang sebelum kehabisan kuota teman-teman yang lain.</p>
-            
             <a href="https://app.shopeepay.co.id/u/1KGRiBjZDe8ULNBsKZemE" target="_blank" onclick="closeModal('modal-thr')" class="inline-flex w-full bg-[#EE4D2D] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_15px_rgba(238,77,45,0.3)] hover:bg-[#D74123] hover:shadow-[0_12px_20px_rgba(238,77,45,0.4)] transition-all transform hover:-translate-y-1 items-center justify-center gap-2">
-                <i class="fas fa-wallet"></i>
-                Buka Amplop ShopeePay
+                <i class="fas fa-wallet"></i> Buka Amplop ShopeePay
             </a>
         </div>
     </div>
@@ -397,9 +371,7 @@
                         isPlaying = true;
                         icon.classList.add('spin-slow');
                         icon.classList.replace('fa-volume-mute', 'fa-music');
-                    }).catch(error => {
-                        console.log("Gagal memutar audio:", error);
-                    });
+                    }).catch(error => {});
                 }
             }
         }
@@ -407,11 +379,9 @@
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             var windowHeight = window.innerHeight;
-            
             for (var i = 0; i < reveals.length; i++) {
                 var elementTop = reveals[i].getBoundingClientRect().top;
                 var elementVisible = 50; 
-                
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
@@ -489,24 +459,114 @@
             document.getElementById(id).classList.add('hidden');
             document.getElementById(id).classList.remove('flex');
         }
-        function copyRekening() {
-            const rek = document.getElementById('rekening').innerText.replace(/-/g, '');
-            const btn = document.getElementById('btn-copy');
-            const temp = document.createElement("input");
-            document.body.appendChild(temp);
-            temp.value = rek;
-            temp.select();
-            document.execCommand("copy");
-            document.body.removeChild(temp);
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+        // Konfigurasi Firebase-mu
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmEQyoxxxxxxxxxxxxxxxxxxxxxxxx",
+            authDomain: "eid-card-wfa.firebaseapp.com",
+            projectId: "eid-card-wfa",
+            storageBucket: "eid-card-wfa.firebasestorage.app",
+            messagingSenderId: "329449967294",
+            appId: "1:329449967294:web:ef047dcdd6a8asdasfasfasfassadf"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // LOGIKA PINTAR: Mengambil ID Klien dari Domain/Folder
+        function getClientId() {
+            const hostname = window.location.hostname;
+            const pathname = window.location.pathname;
+
+            if (hostname.includes('.eid-card.site')) {
+                return hostname.split('.')[0]; 
+            }
+            if (hostname.includes('eid-card.sekolahwfa.com')) {
+                const pathParts = pathname.split('/').filter(part => part.trim().length > 0);
+                if (pathParts.length > 0) return pathParts[0];
+                return 'admin';
+            }
             
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            btn.classList.replace('bg-gold', 'bg-sage-dark');
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.classList.replace('bg-sage-dark', 'bg-gold');
-            }, 2000);
+            // Buat testing localhost/preview lokal
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('u')) return urlParams.get('u');
+            
+            return 'default-user';
         }
+
+        const clientId = getClientId();
+        console.log("Memuat pesan untuk ID Klien:", clientId);
+
+        const form = document.getElementById('form-pesan');
+        const btnSubmit = document.getElementById('btn-submit');
+        const daftarPesan = document.getElementById('daftar-pesan');
+
+        // BACA PESAN REAL-TIME DARI FIREBASE
+        const q = query(collection(db, "ucapan"), where("clientId", "==", clientId));
+
+        onSnapshot(q, (snapshot) => {
+            const pesanArray = [];
+            
+            snapshot.forEach((doc) => {
+                pesanArray.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Urutkan dari yang terbaru
+            pesanArray.sort((a, b) => {
+                const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now();
+                const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now();
+                return timeB - timeA;
+            });
+
+            daftarPesan.innerHTML = '';
+
+            if (pesanArray.length === 0) {
+                daftarPesan.innerHTML = '<p class="text-center text-xs text-white/50 py-4">Belum ada pesan. Jadilah yang pertama!</p>';
+                return;
+            }
+
+            pesanArray.forEach(data => {
+                const pesanHTML = `
+                    <div class="bg-white/5 p-3.5 rounded-xl border border-white/10 animate-fade-in">
+                        <h6 class="font-bold text-sm mb-1 text-cream">${data.nama}</h6>
+                        <p class="text-xs text-white/80 leading-relaxed">${data.pesan}</p>
+                    </div>
+                `;
+                daftarPesan.insertAdjacentHTML('beforeend', pesanHTML);
+            });
+        });
+
+        // KIRIM PESAN BARU KE FIREBASE
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama-pengirim').value;
+            const pesan = document.getElementById('isi-pesan').value;
+
+            btnSubmit.innerText = "Mengirim...";
+            btnSubmit.disabled = true;
+
+            try {
+                await addDoc(collection(db, "ucapan"), {
+                    clientId: clientId, 
+                    nama: nama,
+                    pesan: pesan,
+                    timestamp: serverTimestamp() 
+                });
+                form.reset();
+            } catch (error) {
+                console.error("Gagal mengirim:", error);
+                alert("Waduh, gagal mengirim pesan. Coba lagi ya!");
+            } finally {
+                btnSubmit.innerText = "Kirim Pesan";
+                btnSubmit.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
