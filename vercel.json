@@ -9,6 +9,10 @@
         }
       ],
       "destination": "/arya-ayufam/$1"
+    },
+    {
+      "source": "/",
+      "destination": "/demo/"
     }
   ]
 }
