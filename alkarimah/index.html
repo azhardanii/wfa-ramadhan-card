@@ -272,6 +272,35 @@
                 </div>
             </section>
 
+            <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
+                <div class="reveal relative z-10 flex flex-col items-center">
+                    <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-md backdrop-blur-sm">
+                        <div class="text-4xl mb-3">🕊️</div>
+                        <h4 class="text-xl font-semibold mb-2">Pesan & Doa</h4>
+                        <p class="text-sm text-white/70 mb-6 leading-relaxed">Tinggalkan pesan, doa, atau sapaan hangat untuk kami di sini.</p>
+                        
+                        <form id="form-pesan" class="flex flex-col gap-3 mb-6 text-left">
+                            <input type="text" id="nama-pengirim" placeholder="Nama Kamu" required
+                                class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm">
+                            
+                            <textarea id="isi-pesan" placeholder="Tulis pesan atau doa..." rows="3" required
+                                class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm resize-none"></textarea>
+                            
+                            <button type="submit" id="btn-submit" class="w-full bg-white text-sage-dark font-bold py-3.5 rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 mt-1">
+                                Kirim Pesan
+                            </button>
+                        </form>
+                        
+                        <div class="text-left border-t border-white/20 pt-5">
+                            <h5 class="text-sm font-semibold mb-4 text-white/90">Pesan dari yang lain:</h5>
+                            <div id="daftar-pesan" class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-2 space-y-3" style="scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;">
+                                <p id="loading-pesan" class="text-center text-xs text-white/50 py-4">Memuat pesan...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="py-12 px-6 text-center bg-white border-t border-sage/10">
                 <div class="reveal">
                     <div class="text-3xl mb-2">📍🏡</div>
@@ -606,6 +635,114 @@
                 btn.classList.replace('bg-sage-dark', 'bg-gold');
             }, 2000);
         }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+        // Konfigurasi Firebase-mu
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmEQyoKcgMDeLG8dKvKkl2othO-nWB2eE",
+            authDomain: "eid-card-wfa.firebaseapp.com",
+            projectId: "eid-card-wfa",
+            storageBucket: "eid-card-wfa.firebasestorage.app",
+            messagingSenderId: "329449967294",
+            appId: "1:329449967294:web:ef047dcdd6a8ecd0bd58ef"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // LOGIKA PINTAR: Mengambil ID Klien dari Domain/Folder
+        function getClientId() {
+            const hostname = window.location.hostname;
+            const pathname = window.location.pathname;
+
+            if (hostname.includes('.ucapanlebaran.untukmu.site')) {
+                return hostname.split('.')[0]; 
+            }
+            if (hostname.includes('eid-card.sekolahwfa.com')) {
+                const pathParts = pathname.split('/').filter(part => part.trim().length > 0);
+                if (pathParts.length > 0) return pathParts[0];
+                return 'admin';
+            }
+            
+            // Buat testing localhost/preview lokal
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('u')) return urlParams.get('u');
+            
+            return 'default-user';
+        }
+
+        const clientId = getClientId();
+        console.log("Memuat pesan untuk ID Klien:", clientId);
+
+        const form = document.getElementById('form-pesan');
+        const btnSubmit = document.getElementById('btn-submit');
+        const daftarPesan = document.getElementById('daftar-pesan');
+
+        // BACA PESAN REAL-TIME DARI FIREBASE
+        const q = query(collection(db, "ucapan"), where("clientId", "==", clientId));
+
+        onSnapshot(q, (snapshot) => {
+            const pesanArray = [];
+            
+            snapshot.forEach((doc) => {
+                pesanArray.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Urutkan dari yang terbaru
+            pesanArray.sort((a, b) => {
+                const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now();
+                const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now();
+                return timeB - timeA;
+            });
+
+            daftarPesan.innerHTML = '';
+
+            if (pesanArray.length === 0) {
+                daftarPesan.innerHTML = '<p class="text-center text-xs text-white/50 py-4">Belum ada pesan. Jadilah yang pertama!</p>';
+                return;
+            }
+
+            pesanArray.forEach(data => {
+                const pesanHTML = `
+                    <div class="bg-white/5 p-3.5 rounded-xl border border-white/10 animate-fade-in">
+                        <h6 class="font-bold text-sm mb-1 text-cream">${data.nama}</h6>
+                        <p class="text-xs text-white/80 leading-relaxed">${data.pesan}</p>
+                    </div>
+                `;
+                daftarPesan.insertAdjacentHTML('beforeend', pesanHTML);
+            });
+        });
+
+        // KIRIM PESAN BARU KE FIREBASE
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama-pengirim').value;
+            const pesan = document.getElementById('isi-pesan').value;
+
+            btnSubmit.innerText = "Mengirim...";
+            btnSubmit.disabled = true;
+
+            try {
+                await addDoc(collection(db, "ucapan"), {
+                    clientId: clientId, 
+                    nama: nama,
+                    pesan: pesan,
+                    timestamp: serverTimestamp() 
+                });
+                form.reset();
+            } catch (error) {
+                console.error("Gagal mengirim:", error);
+                alert("Waduh, gagal mengirim pesan. Coba lagi ya!");
+            } finally {
+                btnSubmit.innerText = "Kirim Pesan";
+                btnSubmit.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
