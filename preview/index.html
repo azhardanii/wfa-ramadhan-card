@@ -190,7 +190,7 @@
                             <div class="loading-skeleton skeleton-${counter}"></div>
                             
                             <iframe 
-                                data-src="${file.name}" 
+                                data-src="/${folderName}/${file.name}" 
                                 class="thumbnail-iframe lazy-iframe"
                                 scrolling="no" 
                                 tabindex="-1"
@@ -198,7 +198,7 @@
                             </iframe>
                             
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                                <a href="${file.name}" target="_blank" class="bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-full text-sm hover:scale-105 transition-transform shadow-lg flex items-center gap-2">
+                                <a href="/${folderName}/${file.name}" target="_blank" class="bg-white text-gray-900 font-semibold px-5 py-2.5 rounded-full text-sm hover:scale-105 transition-transform shadow-lg flex items-center gap-2">
                                     <i class="fas fa-play text-emerald-600"></i> Buka Tema
                                 </a>
                             </div>
