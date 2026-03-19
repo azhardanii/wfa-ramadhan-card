@@ -14,7 +14,6 @@
         .thumbnail-wrapper {
             position: relative;
             width: 100%;
-            /* Dibuat persegi (1:1) agar grid rapi dan tidak terlalu tinggi */
             padding-top: 100%; 
             overflow: hidden;
             border-radius: 0.75rem 0.75rem 0 0;
@@ -106,12 +105,10 @@
         const countDisplay = document.getElementById('total-count');
         const errorMessage = document.getElementById('error-message');
         
-        // PENGATURAN GITHUB
         const githubOwner = 'azhardanii';
         const githubRepo = 'wfa-ramadhan-card';
         const folderName = 'preview'; 
 
-        // KAMUS WARNA YANG AKURAT
         const colorMap = {
             "sage": "#50776D",
             "midnight": "#0F1629",
@@ -154,13 +151,11 @@
                 htmlFiles.forEach(file => {
                     const rawName = file.name;
                     
-                    // 1. EKSTRAK NOMOR DENGAN AMAN (Mencari 3 digit angka)
                     let numMatch = rawName.match(/-(\d{3})-/);
                     let number = numMatch ? numMatch[1] : "000";
 
-                    // 2. EKSTRAK WARNA DENGAN AMAN (Mencari kata di dalam nama file)
                     let extractedColor = "Custom";
-                    let themeColor = "#1f2937"; // Fallback default
+                    let themeColor = "#1f2937";
                     
                     for (const key in colorMap) {
                         if (rawName.includes(key)) {
@@ -170,7 +165,6 @@
                         }
                     }
 
-                    // 3. EKSTRAK STYLE (Mengambil sisa kata setelah warna)
                     let styleName = "Style";
                     if (extractedColor !== "Custom") {
                         let splitKey = `-${extractedColor}-`;
