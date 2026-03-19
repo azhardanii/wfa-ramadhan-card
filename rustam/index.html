@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arya & Ayu - Ucapan Lebaran Digital</title>
+    <title>Rustam & Keluarga - Ucapan Lebaran Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lateef&family=Dancing+Script:wght@600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                        boxShadow: { 'sm': '4px 4px 0px 0px rgba(0,0,0,0.9)', 'md': '6px 6px 0px 0px rgba(0,0,0,0.9)', 'lg': '8px 8px 0px 0px rgba(0,0,0,0.9)', 'xl': '10px 10px 0px 0px rgba(0,0,0,0.9)', '2xl': '12px 12px 0px 0px rgba(0,0,0,0.9)' },
                     colors: {
-                        'sage': '#14B8A6', 'sage-dark': '#042F2E', 'cream': '#F0FDFA', 'gold': '#FDE047',
+                        // --- N8N_COLORS_START ---
+                        'sage': '#065F46', 'sage-dark': '#022C22', 'cream': '#FAFAF9', 'gold': '#D4AF37',
+                        // --- N8N_COLORS_END ---
                     },
                     fontFamily: {
-                        'arabic': ['Amiri', 'serif'], 'sans': ['Poppins', 'sans-serif'], 'handwriting': ['Great Vibes', 'cursive'],
+                        // --- N8N_FONTS_START ---
+                        'arabic': ['Lateef', 'serif'], 'sans': ['Nunito', 'sans-serif'], 'handwriting': ['"Dancing Script"', 'cursive'],
+                        // --- N8N_FONTS_END ---
                     }
                 }
             }
@@ -24,8 +29,12 @@
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body.locked { overflow: hidden; }
+        html {
+            scroll-behavior: smooth;
+        }
+        body.locked {
+            overflow: hidden;
+        }
         body {
             background-color: #FDFBF7;
             -webkit-tap-highlight-color: transparent;
@@ -37,7 +46,10 @@
             will-change: transform;
         }
 
-        .ketupat-drop { animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; will-change: transform; }
+        .ketupat-drop {
+            animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+            will-change: transform;
+        }
         @keyframes dropAnimation {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(120vh) rotate(200deg); }
@@ -50,7 +62,11 @@
         }
 
         .confetti-piece {
-            position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none;
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
             animation: pop 1s ease-out forwards;
         }
         @keyframes pop {
@@ -59,28 +75,27 @@
         }
 
         .reveal {
-            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
             will-change: opacity, transform;
         }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .spin-slow { animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Animasi tambahan untuk pesan masuk */
-        @keyframes fadeInPesan {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeInPesan 0.5s ease-out forwards; }
-
         ::-webkit-scrollbar { width: 0px; }
     </style>
+    
 </head>
 <body class="text-gray-800 antialiased font-sans locked">
 
     <audio id="bg-music" loop>
-        <source src="Hetty Koes Endang - THR.mp3" type="audio/mpeg">
+        <source src="Arabic Eid Mubarak.mp3" type="audio/mpeg">
     </audio>
 
     <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 bg-white w-12 h-12 rounded-full shadow-xl border border-sage/20 flex items-center justify-center text-sage-dark hidden transition-all duration-300 transform hover:scale-110">
@@ -88,7 +103,8 @@
     </button>
 
     <div id="cover" class="fixed inset-0 w-full h-[100dvh] bg-sage-dark z-[100] flex flex-col items-center justify-center p-6">
-        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] pointer-events-none"></div>
+        
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/moroccan.png')] pointer-events-none"></div>
 
         <div class="absolute top-0 right-6 md:right-12 flex flex-col items-center z-[110]">
             <div id="ketupat-string" class="w-[2px] h-16 bg-gold/80 origin-top"></div>
@@ -102,16 +118,14 @@
         </div>
 
         <div class="bg-white/95 backdrop-blur-md p-8 rounded-3xl max-w-sm w-full relative z-10 text-center shadow-2xl border border-white/40">
-            <div class="mb-6 flex justify-center items-center animate-bounce-soft">
-                <img src="ariayu1.jpeg" alt="Pesan Spesial" class="w-40 h-40 sm:w-48 sm:h-48 object-cover object-bottom rounded-full shadow-xl border-4 border-white/50">
-            </div>
+            <div class="text-6xl mb-4 animate-bounce" style="animation-duration: 3s;">🌙</div>
             
             <h2 class="text-gold tracking-[0.2em] font-medium uppercase text-[10px] mb-3">Pesan Spesial Untuk:</h2>
             <h1 id="nama-penerima" class="text-2xl font-bold text-sage-dark mb-6 leading-tight capitalize">Keluarga & Sahabat</h1>
             
             <div class="w-12 h-[2px] bg-sage/30 mx-auto mb-6"></div>
             
-            <p class="text-xs text-gray-500 mb-8 uppercase tracking-wider">Dari: <span class="font-bold text-sage-dark text-sm block mt-1 normal-case tracking-normal">Keluarga Aryana Agung Sulistyo &<br/>Ari Ayu Kusumaningtyas</span></p>
+            <p class="text-xs text-gray-500 mb-8 uppercase tracking-wider">Dari: <span class="font-bold text-sage-dark text-sm block mt-1 normal-case tracking-normal">Rustam dan Keluarga</span></p>
             
             <button onclick="openLetter()" class="bg-sage text-white font-semibold py-3 px-8 rounded-full shadow-lg shadow-sage/40 hover:bg-sage-dark transition duration-300 w-full flex items-center justify-center gap-2 text-sm group">
                 Buka Pesan <span class="group-hover:translate-x-1 transition-transform">→</span>
@@ -123,21 +137,24 @@
         <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-sage/10 to-transparent pointer-events-none"></div>
 
         <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative overflow-hidden">
-            
             <section class="relative pt-20 pb-16 px-6 text-center">
                 <div class="reveal">
-                    <p class="font-arabic text-3xl text-gold mb-4 leading-relaxed opacity-90">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+                    <p class="font-arabic text-3xl text-gold mb-4 leading-relaxed opacity-90">
+                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                    </p>
+                    
                     <h2 class="text-sm text-sage-dark font-medium mb-1 tracking-widest uppercase">Selamat Hari Raya</h2>
                     <h1 class="font-handwriting text-6xl text-sage-dark mb-6 transform -rotate-2">Idul Fitri</h1>
-                    <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-8">1 Syawal 1447 H 🌙</span>
+                    
+                    <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-8">
+                        1 Syawal 1447 H 🌙
+                    </span>
                     
                     <div class="px-2">
                         <p class="text-gray-600 text-[13px] leading-relaxed">
                             "Taqabbalallahu minna wa minkum, shiyamana wa shiyamakum."
                             <br><br>
-                            Kami <strong class="text-sage-dark">Keluarga Aryana Agung Sulistyo dan Ari Ayu Kusumaningtyas</strong> mengucapkan Minal 'Aidin Wal Faizin. Mohon maaf lahir dan batin atas segala khilaf dan salah yang pernah terucap maupun diperbuat.
-                            <br><br>
-                            <span class="italic">Semoga kebahagiaan, kedamaian, dan keberkahan selalu menyertai langkah kita setelah Ramadan.</span>
+                            Di hari yang fitri ini, kami <strong class="text-sage-dark">Rustam dan Keluarga</strong> mengucapkan Minal Aidin Wal Faizin. Mohon maaf lahir dan batin atas segala khilaf dan salah yang pernah terucap maupun diperbuat.
                         </p>
                     </div>
                 </div>
@@ -146,8 +163,12 @@
             <section class="py-12 px-8 bg-sage/5 text-center border-y border-sage/10">
                 <div class="reveal">
                     <div class="text-3xl mb-4">🕊️🤍</div>
-                    <p class="font-arabic text-2xl text-sage-dark mb-4 leading-loose">وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ</p>
-                    <p class="text-[10px] text-gray-500 mb-4 font-bold uppercase tracking-widest">(QS. Ali 'Imran: 134)</p>
+                    <p class="font-arabic text-2xl text-sage-dark mb-4 leading-loose">
+                        وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ
+                    </p>
+                    <p class="text-[10px] text-gray-500 mb-4 font-bold uppercase tracking-widest">
+                        (QS. Ali 'Imran: 134)
+                    </p>
                     <p class="italic text-gray-600 text-[13px] leading-relaxed relative">
                         <span class="text-2xl text-sage/30 absolute -top-2 -left-2">"</span>
                         ...dan orang-orang yang menahan amarahnya dan memaafkan (kesalahan) orang lain. Dan Allah menyukai orang-orang yang berbuat kebaikan.
@@ -183,25 +204,19 @@
             <section class="py-10 px-6 text-center bg-cream">
                 <div class="reveal">
                     <div class="text-3xl mb-2">📸</div>
-                    <h3 class="text-xl font-bold text-sage-dark mb-2">Galeri Keluarga Kami</h3>
-                    <p class="text-gray-500 text-xs mb-8">Abi Arya, Momi Ayu, Kakak Khalisha, Abang Kemal dan Adik Karim.</p>
+                    <h3 class="text-xl font-bold text-sage-dark mb-2">Kepingan Memori</h3>
+                    <p class="text-gray-500 text-xs mb-8">Memori manis sebelum menyambut hari raya.</p>
                     
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[-2deg] hover:rotate-0 transition duration-300">
-                            <img src="ariayu2.jpeg" alt="ariayu1" class="w-full h-36 object-cover rounded-lg">
+                    <div class="grid grid-cols-1 gap-4 max-w-sm mx-auto">
+                        
+                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[-3deg] hover:rotate-0 hover:-translate-y-1 transition duration-300">
+                            <img src="rustam1.jpeg" alt="Memori 1" class="w-full h-80 object-cover object-bottom rounded-lg">
                         </div>
-                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[2deg] hover:rotate-0 transition duration-300 mt-4">
-                            <img src="ariayu3.jpeg" alt="ariayu2" class="w-full h-36 object-cover rounded-lg">
+                        
+                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[3deg] hover:rotate-0 hover:-translate-y-1 transition duration-300 mt-4">
+                            <img src="rustam2.jpeg" alt="Memori 2" class="w-full h-full object-cover rounded-lg">
                         </div>
-                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform hover:-translate-y-1 transition duration-300 col-span-2 mt-2">
-                            <img src="ariayu4.jpeg" alt="ariayu3" class="w-full h-48 object-cover rounded-lg">
-                        </div>
-                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[2deg] hover:rotate-0 transition duration-300 mt-4">
-                            <img src="ariayu6.jpeg" alt="ariayu5" class="w-full h-36 object-cover rounded-lg">
-                        </div>
-                        <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform rotate-[-2deg] hover:rotate-0 transition duration-300">
-                            <img src="ariayu5.jpeg" alt="ariayu5" class="w-full h-36 object-cover rounded-lg">
-                        </div>
+                        
                     </div>
                 </div>
             </section>
@@ -209,56 +224,19 @@
             <section class="py-12 px-6 text-center relative overflow-hidden my-4" id="maaf-section">
                 <div class="reveal relative z-10">
                     <div class="text-5xl mb-4 drop-shadow-sm">🙏🏻🫱🏻‍🫲🏻</div>
-                    <h3 class="text-lg font-bold text-sage-dark mb-2">Mohon Maaf Lahir dan Batin</h3>
-                    <p class="text-[13px] text-gray-500 mb-6">Hari raya hati bahagia,<br/>semua saling memaafkan.<br/>Maaf yang tulus dari dalam jiwa,<br/>semoga hidup penuh keberkahan…</p>
+                    <h3 class="text-lg font-bold text-sage-dark mb-2">Udah Maafin Kita Belum?</h3>
+                    <p class="text-[13px] text-gray-500 mb-6">Pencet tombol di bawah buat deal kosong-kosong!</p>
 
                     <button onclick="triggerMaaf()" id="btn-maaf" class="bg-white border-2 border-sage text-sage-dark font-semibold py-3 px-8 rounded-full shadow-sm hover:bg-sage hover:text-white hover:border-transparent transition-all duration-300 active:scale-95 text-sm">
                         Berikan Maaf
                     </button>
                     <p id="maaf-text" class="text-sage-dark font-bold mt-4 opacity-0 transition-opacity duration-500 text-sm">
-                        Alhamdulillah, Terimakasih Sahabat! 🥰
+                        Alhamdulillah! Terima kasih orang baik! 🥰
                     </p>
                 </div>
             </section>
 
             <section class="py-12 px-6 text-center border-t border-sage/10 bg-cream">
-                <div class="reveal">
-                    <h3 class="text-xl font-bold text-sage-dark mb-4">Yuk Berzakat 🌙</h3>
-                    
-                    <div class="bg-white/60 border border-sage/20 p-5 rounded-2xl max-w-md mx-auto mb-8 shadow-sm relative">
-                        <div class="text-3xl text-sage/30 absolute top-2 left-4 font-serif">"</div>
-                        <p class="text-gray-600 text-sm italic leading-relaxed relative z-10">
-                            Bulan Ramadhan bulan penuh berkat,<br>
-                            Banyak pahala terasa indah.<br>
-                            Yuk segerakan menunaikan zakat,<br>
-                            Agar hati tenang dan terarah.
-                        </p>
-                        <div class="text-3xl text-sage/30 absolute bottom-[-10px] right-4 font-serif rotate-180">"</div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                        <a href="https://www.rumahzakat.org/donasi/zakat-fithrah" target="_blank" rel="noopener noreferrer" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-3 group relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
-                            <div class="text-4xl group-hover:scale-110 transition-transform duration-300 z-20">🌾</div>
-                            <div class="flex flex-col items-center z-20">
-                                <span class="font-bold text-sage-dark text-sm sm:text-base">Tunaikan Zakat Fitrahmu</span>
-                                <span class="text-[11px] text-gray-500 mt-1">via Rumah Zakat</span>
-                            </div>
-                        </a>
-
-                        <a href="https://donasi.rumahanaksurga.com/campaign/zakat-maal" target="_blank" rel="noopener noreferrer" class="bg-white border border-sage/20 p-5 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-3 group relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
-                            <div class="text-4xl group-hover:scale-110 transition-transform duration-300 z-20">💰</div>
-                            <div class="flex flex-col items-center z-20">
-                                <span class="font-bold text-sage-dark text-sm sm:text-base">Berbagi Zakat Maal</span>
-                                <span class="text-[11px] text-gray-500 mt-1">via Rumah Anak Surga</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-12 px-6 text-center">
                 <div class="reveal">
                     <h3 class="text-xl font-bold text-sage-dark mb-2">Pojok Rezeki 💸</h3>
                     <p class="text-gray-500 text-xs mb-8">Waktunya bagi-bagi THR! Siapa cepat dia dapat~</p>
@@ -306,9 +284,81 @@
                 </div>
             </section>
 
+            <section class="py-14 px-6 bg-cream text-center border-b-[8px] border-sage">
+                <div class="reveal max-w-4xl mx-auto">
+                    
+                    <div class="mb-10 px-4">
+                        <h3 class="text-2xl font-bold text-sage-dark mb-3">Bikin Juga Yuk!<br/>Samaan Kayak Kita Pakai Ucapan Lebaran Digital 😉✨</h3>
+                        <p class="text-gray-600 text-sm max-w-md mx-auto">Momen spesial pantas dirayakan dengan cara yang spesial. Jadikan silaturahmi lebih eksklusif dengan memiliki link ucapan digital milikmu sendiri.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-10 max-w-3xl mx-auto text-left">
+                        
+                        <div class="bg-white border border-gray-200 p-6 rounded-3xl shadow-sm hover:shadow-md transition flex flex-col">
+                            <div class="mb-4">
+                                <h4 class="text-gray-500 font-bold mb-1 text-sm uppercase tracking-wider">Paket Ekonomis</h4>
+                                <p class="text-gray-400 text-xs">Cuma seharga segelas kopi yang biasa kamu beli ☕</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="text-sm text-gray-400 line-through mb-1">Rp 99.000</div>
+                                <div class="text-3xl font-bold text-sage-dark">Rp 39.000</div>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6 flex-grow">
+                                <ul class="text-[12px] text-gray-600 space-y-3 font-medium">
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Custom Nama Pengirim</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Kirim ke Siapapun Unlimited</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Request Backsound Favorite</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Bebas Ubah Foto & Teks Ucapan</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Revisi Maksimal 2x</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-gray-400 mt-0.5"></i> Masa Aktif 1 Bulan</li>
+                                </ul>
+                            </div>
+                            
+                            <a href="https://wa.me/6285157991798?text=Halo%20Kak,%20Aku%20ingin%20bikin%20ucapan%20Lebaran%20Digital%20yang%20Ekonomis%0A%0A~mia" target="_blank" class="block text-center bg-gray-100 text-gray-600 text-sm font-semibold py-3 px-8 rounded-xl hover:bg-gray-200 transition w-full">
+                                Pilih Ekonomis
+                            </a>
+                        </div>
+
+                        <div class="bg-white border-2 border-gold p-6 rounded-3xl shadow-xl relative transform md:-translate-y-2 flex flex-col">
+                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gold text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-md">
+                                Paling Laris
+                            </div>
+
+                            <div class="mb-4 text-center md:text-left">
+                                <h4 class="text-gold font-bold mb-1 text-sm uppercase tracking-wider">Paket Premium</h4>
+                                <p class="text-gray-500 text-xs">Untuk keluarga & kesan eksklusif</p>
+                            </div>
+                            
+                            <div class="mb-6 text-center md:text-left">
+                                <div class="text-sm text-gray-400 line-through mb-1">Rp 250.000</div>
+                                <div class="text-4xl font-bold text-sage-dark text-transparent bg-clip-text bg-gradient-to-r from-sage-dark to-gold">Rp 99.000</div>
+                            </div>
+                            
+                            <div class="bg-sage/5 p-4 rounded-xl border border-gold/20 mb-6 flex-grow">
+                                <ul class="text-[12px] text-gray-700 space-y-3 font-medium">
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> Semua Fitur di Paket Ekonomis</li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> <strong class="pr-1">Custom Link/Domain</strong> Bebas Pilih Nama</li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> Tampilan Bersih <strong class="pl-1">Tanpa Watermark</strong></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> <strong class="pr-1">Revisi Sepuasnya</strong> (Layanan Prioritas)</li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> Masa Aktif Website <strong class="pl-1">Selamanya</strong></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-gold mt-0.5 pr-2"></i> Proses Cepat (Max 1 Jam)</li>
+                                </ul>
+                            </div>
+                            
+                            <a href="https://wa.me/6285157991798?text=Halo%20Kak,%20Aku%20ingin%20bikin%20ucapan%20Lebaran%20Digital%20yang%20Premium%0A%0A~mia" target="_blank" class="block text-center bg-gradient-to-r from-sage-dark to-sage text-white text-sm font-bold py-3.5 px-8 rounded-xl shadow-[0_8px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.15)] transition-all transform hover:-translate-y-1 w-full">
+                                Pesan Premium Sekarang
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
             <footer class="py-6 text-center bg-cream">
                 <div class="text-[11px] text-gray-400 font-medium">
-                    &copy; 2026 Idul Fitri - Arya & Ayu
+                    &copy; 2026 Eid Card - Sekolah WFA
                 </div>
             </footer>
         </div>
@@ -325,7 +375,7 @@
             <h3 class="text-2xl font-bold text-sage-dark mb-2">Yeay, Ada Amplop!</h3>
             <p class="text-[13px] text-gray-500 mb-8 px-2">Klaim saldo ShopeePay THR kamu sekarang sebelum kehabisan!</p>
             
-            <a href="https://app.shopeepay.co.id/u/pkKqSbVHnKyY8jRGeDWUZ" target="_blank" onclick="closeModal('modal-thr')" class="inline-flex w-full bg-[#EE4D2D] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_15px_rgba(238,77,45,0.3)] hover:bg-[#D74123] hover:shadow-[0_12px_20px_rgba(238,77,45,0.4)] transition-all transform hover:-translate-y-1 items-center justify-center gap-2">
+            <a href="https://app.shopeepay.co.id/u/1KGRiBjZDe8ULNBsKZemE" target="_blank" onclick="closeModal('modal-thr')" class="inline-flex w-full bg-[#EE4D2D] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_15px_rgba(238,77,45,0.3)] hover:bg-[#D74123] hover:shadow-[0_12px_20px_rgba(238,77,45,0.4)] transition-all transform hover:-translate-y-1 items-center justify-center gap-2">
                 <i class="fas fa-wallet"></i>
                 Buka Amplop ShopeePay
             </a>
@@ -396,7 +446,9 @@
                         isPlaying = true;
                         icon.classList.add('spin-slow');
                         icon.classList.replace('fa-volume-mute', 'fa-music');
-                    }).catch(error => {});
+                    }).catch(error => {
+                        console.log("Gagal memutar audio:", error);
+                    });
                 }
             }
         }
@@ -404,9 +456,11 @@
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             var windowHeight = window.innerHeight;
+            
             for (var i = 0; i < reveals.length; i++) {
                 var elementTop = reveals[i].getBoundingClientRect().top;
                 var elementVisible = 50; 
+                
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
@@ -483,6 +537,24 @@
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
             document.getElementById(id).classList.remove('flex');
+        }
+        function copyRekening() {
+            const rek = document.getElementById('rekening').innerText.replace(/-/g, '');
+            const btn = document.getElementById('btn-copy');
+            const temp = document.createElement("input");
+            document.body.appendChild(temp);
+            temp.value = rek;
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+            
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.classList.replace('bg-gold', 'bg-sage-dark');
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.replace('bg-sage-dark', 'bg-gold');
+            }, 2000);
         }
     </script>
 
