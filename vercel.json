@@ -11,6 +11,16 @@
       "destination": "/arya-ayufam/$1"
     },
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "pesandaripinut.untukmu.site"
+        }
+      ],
+      "destination": "/hatfina/$1"
+    },
+    {
       "source": "/",
       "destination": "/demo/"
     }

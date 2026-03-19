@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatfina - Bismillah 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Pinyon+Script&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    borderRadius: { 'none': '0', 'sm': '0', 'DEFAULT': '0', 'md': '0', 'lg': '0', 'xl': '0', '2xl': '0', '3xl': '0', 'full': '0' }, 
+                    boxShadow: { 'sm': 'none', 'md': 'none', 'lg': 'none', 'xl': 'none', '2xl': 'none' },
+                    colors: {
+                        'sage': '#52525B', 'sage-dark': '#18181B', 'cream': '#FFFFFF', 'gold': '#A1A1AA',
+                    },
+                    fontFamily: {
+                        'arabic': ['"Scheherazade New"', 'serif'], 'sans': ['Lora', 'serif'], 'handwriting': ['"Pinyon Script"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body.locked { overflow: hidden; }
+        body { background-color: #FDFBF7; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+
+        #cover { transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1); will-change: transform; }
+
+        .ketupat-drop { animation: dropAnimation 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; will-change: transform; }
+        @keyframes dropAnimation {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(120vh) rotate(200deg); }
+        }
+
+        .string-snap { animation: snapAnimation 0.5s forwards; }
+        @keyframes snapAnimation {
+            0% { transform: scaleY(1); opacity: 1; }
+            100% { transform: scaleY(0); opacity: 0; }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: pop 1.5s ease-out forwards;
+        }
+        @keyframes pop {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        .reveal {
+            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); will-change: opacity, transform;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .spin-slow { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .fade-in { animation: fadeIn 0.8s ease-in forwards; }
+        .fade-out { animation: fadeOut 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; display: none; } }
+
+        ::-webkit-scrollbar { width: 0px; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased font-sans locked">
+
+    <audio id="bg-music" loop>
+        <source src="Feast - Tarot.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 bg-white w-12 h-12 rounded-full shadow-xl border border-sage/20 flex items-center justify-center text-sage-dark hidden transition-all duration-300 transform hover:scale-110">
+        <i class="fas fa-music text-lg"></i>
+    </button>
+
+    <div id="cover" class="fixed inset-0 w-full h-[100dvh] bg-sage-dark z-[100] flex flex-col items-center justify-center p-6">
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/symphony.png')] pointer-events-none"></div>
+        <div class="absolute top-0 right-6 md:right-12 flex flex-col items-center z-[110]">
+            <div id="ketupat-string" class="w-[2px] h-16 bg-gold/80 origin-top"></div>
+            <div id="main-ketupat" class="relative -mt-2 drop-shadow-md origin-top">
+                <svg viewBox="0 0 100 100" class="w-16 h-16 md:w-20 md:h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="15" width="45" height="45" transform="rotate(45 50 15)" fill="#84A98C" stroke="#D4AF37" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M50 15 L50 78 M18 47 L82 47" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M34 31 L66 63 M66 31 L34 63" stroke="#FDFBF7" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="bg-white/95 backdrop-blur-md p-8 rounded-3xl max-w-sm w-full relative z-10 text-center shadow-2xl border border-white/40">
+            <div class="text-6xl mb-4 animate-bounce" style="animation-duration: 3s;">💌</div>
+            
+            <h2 class="text-gold tracking-[0.2em] font-medium uppercase text-[10px] mb-3">Pesan Spesial Untuk:</h2>
+            <h1 id="nama-penerima" class="text-2xl font-bold text-sage-dark mb-6 leading-tight capitalize">Teman-teman Pinutt</h1>
+            
+            <div class="w-12 h-[2px] bg-sage/30 mx-auto mb-6"></div>
+            <p class="text-xs text-gray-500 mb-8 uppercase tracking-wider">Dari: <span class="font-bold text-sage-dark text-sm block mt-1 normal-case tracking-normal">Pinutt Pingin Keliling Dunia 🧕🏻</span></p>
+            
+            <button onclick="openLetter()" class="bg-sage text-white font-semibold py-3 px-8 rounded-full shadow-lg shadow-sage/40 hover:bg-sage-dark transition duration-300 w-full flex items-center justify-center gap-2 text-sm group">
+                Buka Pesan <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+        </div>
+    </div>
+
+    <main id="main-content" class="relative bg-cream min-h-screen w-full">
+        <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-sage/10 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl relative overflow-hidden">
+            
+            <div id="page-1" class="w-full transition-all duration-500">
+                <section class="relative pt-20 pb-10 px-6 text-center">
+                    <div class="reveal">
+                        <h1 class="font-handwriting text-5xl text-sage-dark mb-4 transform -rotate-2">Idul Fitri</h1>
+                        <span class="inline-block bg-sage/10 text-sage-dark text-xs font-bold px-4 py-1.5 rounded-full mb-6">
+                            1 Syawal 1447 H 🌙
+                        </span>
+                        
+                        <div class="px-2 mb-8">
+                            <p class="text-gray-600 text-[14px] leading-relaxed font-medium">
+                                "Dalam rangka mengejar mimpi dan pembuktian bahwa 2026 adalah tahun kita 🗺️🏃🏻‍♀️💨"
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-6 px-6 text-center bg-cream">
+                    <div class="reveal">
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform hover:-translate-y-1 transition duration-300">
+                                <img src="fina1.jpeg" alt="Fina 1" class="w-full h-auto rounded-lg object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-12 px-6 text-center relative overflow-hidden my-4">
+                    <div class="reveal relative z-10">
+                        <h3 class="text-lg font-bold text-sage-dark mb-2">🌙 Yuk, saling doain dan maaf-maafan mumpung lebaran 🙏🏻</h3>
+                        <p class="text-[13px] text-gray-500 mb-8">Pencet tombol di bawah buat deal kosong-kosong, biar jalanku ngejar mimpi makin lancar!</p>
+
+                        <button onclick="triggerMaaf()" id="btn-maaf" class="bg-white border-2 border-sage text-sage-dark font-semibold py-4 px-8 rounded-full shadow-md hover:bg-sage hover:text-white hover:border-transparent transition-all duration-300 active:scale-95 text-sm w-full animate-bounce" style="animation-duration: 2s;">
+                            🤝 Deal, Maafin Fina!
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+
+            <div id="page-2" class="hidden w-full fade-in">
+                
+                <section class="relative pt-16 pb-8 px-6 text-center bg-sage/5">
+                    <div class="reveal active">
+                        <div class="text-5xl mb-4 drop-shadow-sm">🥹💖</div>
+                        <h2 class="text-xl font-bold text-sage-dark mb-2">Alhamdulillah, Makasih Banyak!</h2>
+                        <p class="text-gray-600 text-[13px] leading-relaxed mb-6">
+                            Terima kasih sudah memaafkan! Bismillah 2026 kita semua sukses jalur langit! ✨
+                        </p>
+                    </div>
+                </section>
+
+                <section class="py-6 px-6 text-center bg-cream">
+                    <div class="reveal active">
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="relative rounded-xl overflow-hidden shadow-sm bg-white p-1.5 transform hover:-translate-y-1 transition duration-300">
+                                <img src="fina2.jpeg" alt="Fina 2" class="w-full h-auto rounded-lg object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-10 px-6 text-center border-t border-sage/10 bg-cream">
+                    <div class="reveal active">
+                        <h3 class="text-xl font-bold text-sage-dark mb-2">Pojok Rezeki 💸</h3>
+                        <p class="text-gray-500 text-xs mb-8">Sebagai tanda damai, ada sedikit THR nih! Siapa cepat dia dapet~</p>
+                        
+                        <div class="flex justify-center">
+                            <button onclick="openModal('modal-thr')" class="bg-white border border-sage/20 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-4 group cursor-pointer w-full max-w-xs relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
+                                <div class="text-5xl group-hover:scale-110 transition-transform duration-300 z-20">🎁✨</div>
+                                <div class="flex flex-col items-center z-20">
+                                    <span class="font-bold text-sage-dark text-lg">Ambil Jatah THR</span>
+                                    <span class="text-xs text-gray-500 mt-1">Tap untuk buka!</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
+                    <div class="reveal active relative z-10 flex flex-col items-center">
+                        <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-md backdrop-blur-sm">
+                            <div class="text-4xl mb-3">💬</div>
+                            <h4 class="text-xl font-semibold mb-2">Biar Ngga Putus Kontak</h4>
+                            <p class="text-xs text-white/70 mb-6 leading-relaxed">Tinggalkan pesan, doa, atau info *update* hidupmu di sini dong!</p>
+                            
+                            <form id="form-pesan" class="flex flex-col gap-3 mb-6 text-left">
+                                <input type="text" id="nama-pengirim" placeholder="Nama Kamu" required
+                                    class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm">
+                                
+                                <textarea id="isi-pesan" placeholder="Tulis pesan atau doa (jangan nanya kapan nikah)..." rows="3" required
+                                    class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white focus:bg-white/20 transition-all text-sm resize-none"></textarea>
+                                
+                                <button type="submit" id="btn-submit" class="w-full bg-white text-sage-dark font-bold py-3.5 rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 mt-1">
+                                    Kirim Pesan
+                                </button>
+                            </form>
+                            
+                            <div class="text-left border-t border-white/20 pt-5">
+                                <h5 class="text-sm font-semibold mb-4 text-white/90">Pesan dari mutual lainnya:</h5>
+                                <div id="daftar-pesan" class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-2 space-y-3" style="scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;">
+                                    <p id="loading-pesan" class="text-center text-xs text-white/50 py-4">Memuat pesan...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-12 px-6 text-center bg-white border-t border-sage/10">
+                    <div class="reveal active">
+                        <div class="text-3xl mb-2">📍🏡</div>
+                        <h3 class="text-lg font-bold text-sage-dark mb-2">Basecamp</h3>
+                        <p class="text-[13px] text-gray-500 mb-6">Kalau aku belum kabur, pintu rumah selalu terbuka buat ngumpul! 😉</p>
+
+                        <div class="bg-sage/5 p-2 rounded-2xl border border-sage/20 shadow-sm mb-6">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.661242634478!2d112.6113206!3d-7.9304046999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883dac6e57f33%3A0x53aadefc5856d021!2sTriyoga%20Farm%20(Soerjanto%20Orchid)!5e0!3m2!1sen!2sid!4v1773901358555!5m2!1sen!2sid" 
+                                width="100%" 
+                                height="250" 
+                                style="border:0; border-radius: 0.75rem;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+
+                        <a href="https://goo.gl/maps/contohlinklokasi" target="_blank" class="inline-block bg-white border-2 border-sage text-sage-dark font-semibold py-3 px-8 rounded-full shadow-sm hover:bg-sage hover:text-white hover:border-transparent transition-all duration-300 text-sm">
+                            <i class="fas fa-map-marked-alt mr-2"></i> Buka via Maps
+                        </a>
+                    </div>
+                </section>
+
+                <section class="py-12 px-6 bg-sage-dark text-center text-white relative">
+                    <div class="reveal active relative z-10 flex flex-col items-center">
+                        <div class="bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-sm backdrop-blur-sm transition-transform duration-300 hover:scale-[1.02]">
+                            <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full flex items-center justify-center mb-4 shadow-lg animate-pulse">
+                                <i class="fab fa-instagram text-3xl text-white"></i>
+                            </div>
+                            <h4 class="text-base font-semibold mb-1">@hatfinaizz</h4>
+                            <p class="text-xs text-white/70 mb-6">Kirimkan doa, cerita, atau sekadar<br/>menyapa ku langsung di DM ya!</p>
+                            
+                            <a href="https://ig.me/m/hatfinaizz" target="_blank" rel="noopener noreferrer" class="group relative flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_8px_20px_rgba(253,29,29,0.4)] hover:-translate-y-1 overflow-hidden text-sm">
+                                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0"></div>
+                                <span class="relative z-10 flex items-center gap-2">
+                                    <i class="far fa-paper-plane text-lg"></i> DM Fina
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="py-6 text-center bg-cream">
+                    <div class="text-[11px] text-gray-400 font-medium">
+                        © 2026 Eid Card - Hatfina Izazi
+                    </div>
+                </footer>
+            </div> </div>
+    </main>
+
+    <div id="modal-thr" class="fixed inset-0 z-[110] hidden items-center justify-center px-4 bg-black/60 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-3xl p-8 w-full max-w-sm text-center relative shadow-2xl transform transition-transform duration-300 scale-95" id="modal-thr-content">
+            <button onclick="closeModal('modal-thr')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-7xl mb-6 mt-4 animate-bounce drop-shadow-md">💌</div>
+            <h3 class="text-2xl font-bold text-sage-dark mb-2">Yeay, Ada Amplop!</h3>
+            <p class="text-[13px] text-gray-500 mb-8 px-2">Klaim saldo ShopeePay THR kamu sekarang sebelum kehabisan!</p>
+            <a href="https://app.u.shopeepay.co.id/u/oPTEnfyVRYnZknFt6wj1Z" target="_blank" onclick="closeModal('modal-thr')" class="inline-flex w-full bg-[#EE4D2D] text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_8px_15px_rgba(238,77,45,0.3)] hover:bg-[#D74123] hover:shadow-[0_12px_20px_rgba(238,77,45,0.4)] transition-all transform hover:-translate-y-1 items-center justify-center gap-2">
+                <i class="fas fa-wallet"></i> Buka Amplop ShopeePay
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const kpd = params.get('kpd');
+            if (kpd) {
+                document.getElementById('nama-penerima').textContent = document.createTextNode(kpd).textContent;
+            }
+        });
+
+        var isPlaying = false; 
+        
+        function openLetter() {
+            const ketupat = document.getElementById('main-ketupat');
+            const tali = document.getElementById('ketupat-string');
+            const cover = document.getElementById('cover');
+            
+            tali.classList.add('string-snap');
+            ketupat.classList.add('ketupat-drop');
+
+            const bgMusic = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            const icon = musicBtn.querySelector('i');
+            
+            musicBtn.classList.remove('hidden');
+            
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isPlaying = true;
+                    icon.classList.add('spin-slow');
+                    icon.classList.replace('fa-volume-mute', 'fa-music');
+                }).catch(error => {
+                    isPlaying = false;
+                    icon.classList.remove('spin-slow');
+                    icon.classList.replace('fa-music', 'fa-volume-mute');
+                });
+            }
+
+            setTimeout(() => {
+                cover.style.transform = 'translateY(-100vh)';
+                document.body.classList.remove('locked');
+                setTimeout(reveal, 100);
+            }, 600); 
+
+            setTimeout(() => { cover.style.display = 'none'; }, 2000);
+        }
+
+        function toggleMusic() {
+            const bgMusic = document.getElementById('bg-music');
+            const icon = document.querySelector('#music-btn i');
+            
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                icon.classList.remove('spin-slow');
+                icon.classList.replace('fa-music', 'fa-volume-mute');
+            } else {
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        isPlaying = true;
+                        icon.classList.add('spin-slow');
+                        icon.classList.replace('fa-volume-mute', 'fa-music');
+                    }).catch(error => { console.log(error); });
+                }
+            }
+        }
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            var windowHeight = window.innerHeight;
+            for (var i = 0; i < reveals.length; i++) {
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 50; 
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // LOGIKA PINDAH HALAMAN (PAGE 1 -> PAGE 2)
+        function triggerMaaf() {
+            const btn = document.getElementById('btn-maaf');
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+
+            // 1. Ubah tombol jadi loading text
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Tunggu bentar...';
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // 2. Tembakkan Confetti
+            const colors = ['#84A98C', '#D4AF37', '#FDFBF7'];
+            for(let i=0; i<40; i++) {
+                let p = document.createElement('div');
+                p.className = 'confetti-piece';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                p.style.left = '50%';
+                p.style.top = '50%';
+                
+                // Pancarkan ke segala arah layaknya ledakan
+                let angle = Math.random() * Math.PI * 2;
+                let velocity = 50 + Math.random() * 100;
+                let tx = Math.cos(angle) * velocity + 'px';
+                let ty = Math.sin(angle) * velocity + 'px';
+                
+                p.style.setProperty('--tx', tx);
+                p.style.setProperty('--ty', ty);
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1500);
+            }
+
+            // 3. Pindah Halaman setelah 1.2 detik
+            setTimeout(() => {
+                page1.classList.add('fade-out'); // Fade out halaman 1
+                
+                setTimeout(() => {
+                    page1.classList.add('hidden'); // Sembunyikan beneran
+                    page2.classList.remove('hidden'); // Munculkan halaman 2
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll otomatis ke atas
+                    reveal(); // Trigger animasi masuk untuk elemen di page 2
+                }, 500); // Waktu nunggu fade-out selesai
+                
+            }, 1200);
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmEQyoKcgMDeLG8dKvKkl2othO-nWB2eE",
+            authDomain: "eid-card-wfa.firebaseapp.com",
+            projectId: "eid-card-wfa",
+            storageBucket: "eid-card-wfa.firebasestorage.app",
+            messagingSenderId: "329449967294",
+            appId: "1:329449967294:web:ef047dcdd6a8ecd0bd58ef"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        function getClientId() {
+            const hostname = window.location.hostname;
+            const pathname = window.location.pathname;
+
+            if (hostname.includes('.untukmu.site')) {
+                return hostname.split('.')[0]; 
+            }
+            if (hostname.includes('eid-card.sekolahwfa.com')) {
+                const pathParts = pathname.split('/').filter(part => part.trim().length > 0);
+                if (pathParts.length > 0) return pathParts[0];
+                return 'admin';
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('u')) return urlParams.get('u');
+            return 'default-user';
+        }
+
+        const clientId = getClientId();
+
+        const form = document.getElementById('form-pesan');
+        const btnSubmit = document.getElementById('btn-submit');
+        const daftarPesan = document.getElementById('daftar-pesan');
+
+        const q = query(collection(db, "ucapan"), where("clientId", "==", clientId));
+
+        onSnapshot(q, (snapshot) => {
+            const pesanArray = [];
+            snapshot.forEach((doc) => { pesanArray.push({ id: doc.id, ...doc.data() }); });
+
+            pesanArray.sort((a, b) => {
+                const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now();
+                const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now();
+                return timeB - timeA;
+            });
+
+            daftarPesan.innerHTML = '';
+            if (pesanArray.length === 0) {
+                daftarPesan.innerHTML = '<p class="text-center text-xs text-white/50 py-4">Belum ada pesan. Jadilah yang pertama!</p>';
+                return;
+            }
+
+            pesanArray.forEach(data => {
+                const pesanHTML = `
+                    <div class="bg-white/5 p-3.5 rounded-xl border border-white/10 animate-fade-in">
+                        <h6 class="font-bold text-sm mb-1 text-cream">${data.nama}</h6>
+                        <p class="text-xs text-white/80 leading-relaxed">${data.pesan}</p>
+                    </div>
+                `;
+                daftarPesan.insertAdjacentHTML('beforeend', pesanHTML);
+            });
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama-pengirim').value;
+            const pesan = document.getElementById('isi-pesan').value;
+
+            btnSubmit.innerText = "Mengirim...";
+            btnSubmit.disabled = true;
+
+            try {
+                await addDoc(collection(db, "ucapan"), {
+                    clientId: clientId, nama: nama, pesan: pesan, timestamp: serverTimestamp() 
+                });
+                form.reset();
+            } catch (error) {
+                alert("Waduh, gagal mengirim pesan. Coba lagi ya!");
+            } finally {
+                btnSubmit.innerText = "Kirim Pesan";
+                btnSubmit.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
